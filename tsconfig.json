@@ -22,12 +22,16 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["./components/*"],
+      "@modules/*": ["./modules/*"],
       "@screens/*": ["./screens/*"],
+      "@services/*": ["./services/*"],
+      "@models/*": ["./models/*"],
       "@utils/*": ["./utils/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
