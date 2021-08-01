@@ -6,12 +6,12 @@ import {
   SafeAreaView,
   View,
 } from 'react-native';
-import { useFetchRepos } from '@screens/hooks/useFetchRepos';
-import { RepoItemList } from '@components/RepoItemList/RepoItemList';
+import { useFetchRepos } from '@screens/RepositoriesScreen/hooks/useFetchRepos';
+import { RepoListItem } from '@components/RepoListItem/RepoListItem';
 import { Repository } from '@models/Repository';
 
 const renderItem = ({ item }: ListRenderItemInfo<Repository>) => (
-  <RepoItemList repo={item} />
+  <RepoListItem repo={item} />
 );
 
 const keyExtractor = ({ id }: Repository) => `${id}`;

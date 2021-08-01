@@ -1,3 +1,5 @@
 {
-  "global.repos": "Repositorios"
+  "global.home": "Inicio",
+  "global.repos": "Repositorios",
+  "global.pullRequests": "Pull Requests"
 }

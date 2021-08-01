@@ -24,6 +24,7 @@
       "@components/*": ["./components/*"],
       "@modules/*": ["./modules/*"],
       "@screens/*": ["./screens/*"],
+      "@hooks/*": ["./hooks/*"],
       "@services/*": ["./services/*"],
       "@models/*": ["./models/*"],
       "@utils/*": ["./utils/*"]

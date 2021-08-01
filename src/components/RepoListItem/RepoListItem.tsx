@@ -3,16 +3,16 @@ import { Image, Text, View } from 'react-native';
 import { Repository } from '@models/Repository';
 import styles from './styles';
 
-interface RepoItemListProps {
+type RepoListItemProps = {
   repo: Repository;
-}
+};
 
-export const RepoItemList = ({
+export const RepoListItem = ({
   repo: {
     owner: { ownerName, avatarUrl },
     name,
   },
-}: RepoItemListProps) => {
+}: RepoListItemProps) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: avatarUrl }} style={styles.avatar} />
