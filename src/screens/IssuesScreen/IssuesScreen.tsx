@@ -1,3 +1,7 @@
+import { ListItem } from '@components/ListItem/ListItem';
+import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
+import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
+import { Issue } from '@models/Issue';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -7,33 +11,26 @@ import {
   View,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { ListItem } from '@components/ListItem/ListItem';
-import { PullRequest } from '@models/PullRequest';
-import { useFetchPullRequests } from './hooks/useFetchPullRequests';
-import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
-import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
+import { useFetchIssues } from './hooks/useFetchIssues';
 
-const keyExtractor = ({ id }: PullRequest) => `${id}`;
+const keyExtractor = ({ number }: Issue) => `${number}`;
 
 const Separator = () => <View style={{ height: 24 }} />;
 
 const AnimatedFlatList =
-  Animated.createAnimatedComponent<FlatListProps<PullRequest>>(FlatList);
+  Animated.createAnimatedComponent<FlatListProps<Issue>>(FlatList);
 
-export const PullRequestsScreen = () => {
-  const { isLoading, data } = useFetchPullRequests(
-    'wix',
-    'react-native-navigation',
-  );
+export const IssuesScreen = () => {
+  const { isLoading, data } = useFetchIssues('wix', 'react-native-navigation');
   const { opacity, scrollHandler } = useHeaderAnimation();
 
-  const renderItem = ({ item }: ListRenderItemInfo<PullRequest>) => (
+  const renderItem = ({ item }: ListRenderItemInfo<Issue>) => (
     <ListItem username="wix" repo="react-native-navigation" item={item} />
   );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <SimpleHeader title="Pull Requests" opacity={opacity} />
+      <SimpleHeader title="Issues" opacity={opacity} />
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1 }} />
       ) : (

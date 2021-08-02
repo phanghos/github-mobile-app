@@ -11,7 +11,7 @@ export const useFetchResource = <T>(
 
   useEffect(() => {
     if (fetchOnMount) getData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { isLoading, setIsLoading, data, setData, error, setError };
 };

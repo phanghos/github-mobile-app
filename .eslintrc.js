@@ -26,6 +26,10 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': [
+      2,
+      { 'ts-ignore': 'allow-with-description' },
+    ],
   },
   settings: {
     react: {

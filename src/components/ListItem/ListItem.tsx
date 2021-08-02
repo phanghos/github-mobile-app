@@ -1,18 +1,23 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { PullRequest } from '@models/PullRequest';
 
-type PullRequestListItemProps = {
-  username: string;
-  repo: string;
-  pullRequest: PullRequest;
+type Item = {
+  number: number;
+  title: string;
+  labels: Array<{ id: number; name: string; color: string }>;
 };
 
-export const PullRequestListItem = ({
+type ListItemProps = {
+  username: string;
+  repo: string;
+  item: Item;
+};
+
+export const ListItem = ({
   username,
   repo,
-  pullRequest: { number, title, labels },
-}: PullRequestListItemProps) => (
+  item: { number, title, labels },
+}: ListItemProps) => (
   <View>
     <Text
       style={{ fontWeight: '200', marginBottom: 4 }}
@@ -23,8 +28,9 @@ export const PullRequestListItem = ({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ marginTop: 8 }}
     >
-      {labels.map(({ color, name }) => (
+      {labels.map(({ id, color, name }) => (
         <View
+          key={`${id}`}
           style={{
             backgroundColor: `#${color}`,
             borderRadius: 24,

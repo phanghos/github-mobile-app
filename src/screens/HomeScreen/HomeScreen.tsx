@@ -1,7 +1,11 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { PULL_REQUESTS_SCREEN, REPOSITORIES_SCREEN } from 'consts/navigation';
+import {
+  ISSUES_SCREEN,
+  PULL_REQUESTS_SCREEN,
+  REPOSITORIES_SCREEN,
+} from 'consts/navigation';
 
 const Item = ({ text, onPress }: { text: string; onPress?: () => void }) => {
   return (
@@ -16,7 +20,7 @@ export const HomeScreen = () => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', paddingVertical: 48 }}>
-      <Item text="Issues" />
+      <Item text="Issues" onPress={() => navigate(ISSUES_SCREEN)} />
       <Item text="Repositories" onPress={() => navigate(REPOSITORIES_SCREEN)} />
       <Item
         text="Pull Requests"
