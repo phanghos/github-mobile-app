@@ -38,7 +38,9 @@
     "eslint": "7.14.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.1",
     "jest": "^26.6.3",
+    "lint-staged": "^11.1.1",
     "metro-react-native-babel-preset": "^0.64.0",
     "miragejs": "^0.1.41",
     "prettier": "^2.3.2",
@@ -50,5 +52,9 @@
     "setupFiles": [
       "<rootDir>/jest.setup.js"
     ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
