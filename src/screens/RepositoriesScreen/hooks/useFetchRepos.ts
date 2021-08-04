@@ -1,3 +1,4 @@
+import { pipe } from 'lodash/fp';
 import { useFetchResource } from '@hooks/useFetchResource';
 import { ApiService } from '@services/api';
 import { Repository } from '@models/Repository';
@@ -8,7 +9,7 @@ export const useFetchRepos = (username: string) => {
     setIsLoading(true);
 
     ApiService.getRepos(username)
-      .then(({ data }) => setData(mapRepositoriesApiResponse(data)))
+      .then(({ data }) => pipe(mapRepositoriesApiResponse, setData)(data))
       .catch(setError)
       .finally(() => setIsLoading(false));
   };
