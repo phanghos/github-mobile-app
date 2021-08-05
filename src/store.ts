@@ -1,18 +1,9 @@
-import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
-
-const l18nSlice = createSlice({
-  name: 'l18n',
-  initialState: {
-    locale: 'en',
-  },
-  reducers: {},
-});
-
-export const l18nActions = l18nSlice.actions;
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { l18nReducer } from '@features/l18n/l18n.reducer';
 
 const getRootReducer = () =>
   combineReducers({
-    l18n: l18nSlice.reducer,
+    l18n: l18nReducer,
   });
 
 export const store = configureStore({
