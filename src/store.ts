@@ -8,12 +8,17 @@ const l18nSlice = createSlice({
   reducers: {},
 });
 
-export const store = configureStore({
-  reducer: combineReducers({
+export const l18nActions = l18nSlice.actions;
+
+const getRootReducer = () =>
+  combineReducers({
     l18n: l18nSlice.reducer,
-  }),
-  middleware: defaultMiddleware => {
-    const middlewares = defaultMiddleware();
+  });
+
+export const store = configureStore({
+  reducer: getRootReducer(),
+  middleware: getDefaultMiddleware => {
+    const middlewares = getDefaultMiddleware();
 
     if (__DEV__) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
