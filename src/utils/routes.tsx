@@ -4,7 +4,9 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { HomeScreen } from '@screens/HomeScreen/HomeScreen';
+import { IssuesScreen } from '@screens/IssuesScreen/IssuesScreen';
 import { RepositoriesScreen } from '@screens/RepositoriesScreen/RepositoriesScreen';
 import { PullRequestsScreen } from '@screens/PullRequestsScreen/PullRequestsScreen';
 import {
@@ -12,9 +14,7 @@ import {
   ISSUES_SCREEN,
   PULL_REQUESTS_SCREEN,
   REPOSITORIES_SCREEN,
-} from 'consts/navigation';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { IssuesScreen } from '@screens/IssuesScreen/IssuesScreen';
+} from 'consts/navigationConsts';
 
 const AppStack = createStackNavigator();
 
@@ -35,11 +35,11 @@ export const AppNavigator = () => {
           options={{ title: formatMessage({ id: 'global.home' }) }}
         />
         <AppStack.Screen
-          name={REPOSITORIES_SCREEN}
-          component={RepositoriesScreen}
+          name={ISSUES_SCREEN}
+          component={IssuesScreen}
           options={{
             ...defaultScreenOptions,
-            title: formatMessage({ id: 'global.repos' }),
+            title: formatMessage({ id: 'global.issues' }),
           }}
         />
         <AppStack.Screen
@@ -51,11 +51,11 @@ export const AppNavigator = () => {
           }}
         />
         <AppStack.Screen
-          name={ISSUES_SCREEN}
-          component={IssuesScreen}
+          name={REPOSITORIES_SCREEN}
+          component={RepositoriesScreen}
           options={{
             ...defaultScreenOptions,
-            title: 'Issues',
+            title: formatMessage({ id: 'global.repos' }),
           }}
         />
       </AppStack.Navigator>

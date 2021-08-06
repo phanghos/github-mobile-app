@@ -1,8 +1,9 @@
-import { PullRequestApi, PullRequestsApiResponse } from '@models/PullRequest';
+import {
+  PullRequestFromApi,
+  PullRequestsApiResponse,
+} from '@models/PullRequest';
 
-export const mapPullRequestsApiResponse = (
-  apiPullRequests: PullRequestsApiResponse,
-) => apiPullRequests.map(mapPullRequestFromApi);
+export const mapPullRequestsApiResponse = (prs: PullRequestsApiResponse) =>
+  prs.map(mapPullRequestFromApi);
 
-export const mapPullRequestFromApi = (apiPullRequest: PullRequestApi) =>
-  apiPullRequest;
+export const mapPullRequestFromApi = (pr: PullRequestFromApi) => pr;

@@ -1,7 +1,7 @@
 import issuesMock from '../mocks/jsonMocks/issuesMock.json';
 
-export type IssueApi = typeof issuesMock[0];
+export type IssueFromApi = typeof issuesMock[0];
 
-export type IssuesApiResponse = IssueApi[];
+export type IssuesApiResponse = IssueFromApi[];
 
-export type Issue = IssueApi;
+export type Issue = IssueFromApi;

@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const l18nSlice = createSlice({
   name: 'l18n',
-  initialState: {
-    locale: 'en',
-  },
+  initialState: { locale: 'en' },
   reducers: {},
 });
 

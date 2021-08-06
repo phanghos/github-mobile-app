@@ -5,7 +5,7 @@ import {
   ISSUES_SCREEN,
   PULL_REQUESTS_SCREEN,
   REPOSITORIES_SCREEN,
-} from 'consts/navigation';
+} from 'consts/navigationConsts';
 
 const Item = ({ text, onPress }: { text: string; onPress?: () => void }) => {
   return (
