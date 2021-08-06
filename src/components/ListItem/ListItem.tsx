@@ -1,3 +1,4 @@
+import { Label } from '@components/Label/Label';
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
@@ -28,19 +29,8 @@ export const ListItem = ({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ marginTop: 8 }}
     >
-      {labels.map(({ id, color, name }) => (
-        <View
-          key={`${id}`}
-          style={{
-            backgroundColor: `#${color}`,
-            borderRadius: 24,
-            marginRight: 4,
-            paddingHorizontal: 6,
-            paddingVertical: 2,
-          }}
-        >
-          <Text style={{ fontWeight: '600' }}>{name}</Text>
-        </View>
+      {labels.map(({ id, ...labelProps }) => (
+        <Label key={`${id}`} {...labelProps} />
       ))}
     </ScrollView>
   </View>
