@@ -6,6 +6,7 @@ module.exports = {
     jest: true,
   },
   extends: [
+    '@react-native-community',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
@@ -24,8 +25,10 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
-    'react/prop-types': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/prop-types': 0,
+    'react/jsx-key': 0,
+    'react-native/no-inline-styles': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/ban-ts-comment': [
       2,
       { 'ts-ignore': 'allow-with-description' },

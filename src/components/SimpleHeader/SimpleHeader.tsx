@@ -6,8 +6,8 @@ type SimpleHeaderProps = TopBarProps & {
   title: string;
 };
 
-export const SimpleHeader = ({ title, opacity }: SimpleHeaderProps) => (
-  <TopBar opacity={opacity}>
+export const SimpleHeader = ({ title, ...restProps }: SimpleHeaderProps) => (
+  <TopBar {...restProps}>
     <HeaderTitle>{title}</HeaderTitle>
   </TopBar>
 );

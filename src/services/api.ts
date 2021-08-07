@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { createServer } from 'miragejs';
 import repositoriesMock from '../mocks/jsonMocks/repositoriesMock.json';
 import pullRequetsMock from '../mocks/jsonMocks/pullRequestsMock.json';
 import issuesMock from '../mocks/jsonMocks/issuesMock.json';
+import searchResultsReposMock from '../mocks/jsonMocks/searchResultsReposMock.json';
 
 // @ts-ignore TODO Fix types
 if (window.server) {
@@ -28,10 +29,20 @@ window.server = createServer({
         return issuesMock;
       },
     );
+    this.get('https://api.github.com/search/repositories', () => {
+      return searchResultsReposMock;
+    });
   },
 });
 
-export const ApiService = (() => {
+type ApiServiceApi = {
+  getRepos: (username: string) => Promise<AxiosResponse>;
+  getPullRequests: (username: string, repo: string) => Promise<AxiosResponse>;
+  getIssues: (username: string, repo: string) => Promise<AxiosResponse>;
+  searchRepos: (query: string) => Promise<AxiosResponse>;
+};
+
+export const ApiService: ApiServiceApi = (() => {
   const instance = axios.create({
     baseURL: 'https://api.github.com/',
     headers: { Accept: 'application/vnd.github.v3+json' },
@@ -46,9 +57,13 @@ export const ApiService = (() => {
   const getIssues = (username: string, repo: string) =>
     instance.get(`repos/${username}/${repo}/issues`);
 
+  const searchRepos = (query: string) =>
+    instance.get(`search/repositories?q=${query}`);
+
   return {
     getRepos,
     getPullRequests,
     getIssues,
+    searchRepos,
   };
 })();

@@ -1,24 +1,30 @@
 import React, { PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { SearchIcon } from 'assets/icons';
+import { SEARCH_SCREEN } from 'consts/navigationConsts';
 
 export type TopBarProps = {
   showBack?: boolean;
+  showSearch?: boolean;
+  showBottomLine?: boolean;
   onBackPress?: () => void;
-  opacity: Animated.SharedValue<number>;
+  opacity?: Animated.SharedValue<number>;
 };
 
 export const TopBar = ({
   showBack = true,
+  showSearch = false,
+  showBottomLine = true,
   onBackPress,
   opacity,
   children,
 }: PropsWithChildren<TopBarProps>) => {
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   const opacityStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
+    opacity: opacity?.value ?? 1,
   }));
 
   return (
@@ -35,7 +41,12 @@ export const TopBar = ({
       ]}
     >
       <View
-        style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 16 }}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: 16,
+          height: 48,
+        }}
       >
         {showBack && (
           <HeaderBackButton
@@ -43,14 +54,21 @@ export const TopBar = ({
             onPress={onBackPress || goBack}
           />
         )}
-        {children}
+        <View style={{ flex: 1 }}>{children}</View>
+        {showSearch && (
+          <TouchableOpacity onPress={() => navigate(SEARCH_SCREEN)}>
+            <SearchIcon style={{ marginRight: 16 }} />
+          </TouchableOpacity>
+        )}
       </View>
-      <Animated.View
-        style={[
-          { width: '100%', height: 1, backgroundColor: '#E8E8E8' },
-          opacityStyle,
-        ]}
-      />
+      {showBottomLine && (
+        <Animated.View
+          style={[
+            { width: '100%', height: 1, backgroundColor: '#E8E8E8' },
+            opacityStyle,
+          ]}
+        />
+      )}
     </Animated.View>
   );
 };

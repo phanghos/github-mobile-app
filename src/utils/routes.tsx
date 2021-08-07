@@ -9,11 +9,15 @@ import { HomeScreen } from '@screens/HomeScreen/HomeScreen';
 import { IssuesScreen } from '@screens/IssuesScreen/IssuesScreen';
 import { RepositoriesScreen } from '@screens/RepositoriesScreen/RepositoriesScreen';
 import { PullRequestsScreen } from '@screens/PullRequestsScreen/PullRequestsScreen';
+import { SearchScreen } from '@screens/SearchScreen/SearchScreen';
+import { SearchResultsScreen } from '@screens/SearchResultsScreen/SearchResultsScreen';
 import {
   HOME_SCREEN,
   ISSUES_SCREEN,
   PULL_REQUESTS_SCREEN,
   REPOSITORIES_SCREEN,
+  SEARCH_RESULTS_SCREEN,
+  SEARCH_SCREEN,
 } from 'consts/navigationConsts';
 
 const AppStack = createStackNavigator();
@@ -32,7 +36,10 @@ export const AppNavigator = () => {
         <AppStack.Screen
           name={HOME_SCREEN}
           component={HomeScreen}
-          options={{ title: formatMessage({ id: 'global.home' }) }}
+          options={{
+            ...defaultScreenOptions,
+            title: formatMessage({ id: 'global.home' }),
+          }}
         />
         <AppStack.Screen
           name={ISSUES_SCREEN}
@@ -56,6 +63,20 @@ export const AppNavigator = () => {
           options={{
             ...defaultScreenOptions,
             title: formatMessage({ id: 'global.repos' }),
+          }}
+        />
+        <AppStack.Screen
+          name={SEARCH_SCREEN}
+          component={SearchScreen}
+          options={{
+            ...defaultScreenOptions,
+          }}
+        />
+        <AppStack.Screen
+          name={SEARCH_RESULTS_SCREEN}
+          component={SearchResultsScreen}
+          options={{
+            ...defaultScreenOptions,
           }}
         />
       </AppStack.Navigator>
