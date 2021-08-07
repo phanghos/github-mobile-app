@@ -67,7 +67,10 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.svg": "<rootDir>/__mocks__/svgMock.js"
+    }
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
