@@ -20,3 +20,5 @@ jest.mock('@react-navigation/native', () => {
     }),
   };
 });
+
+global.__reanimatedWorkletInit = jest.fn();

@@ -4,92 +4,198 @@ exports[`HomeScreen Renders correctly 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
+      "backgroundColor": "#fff",
       "flex": 1,
-      "paddingVertical": 48,
+      "paddingTop": 48,
     }
   }
 >
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "marginVertical": 6,
-        "opacity": 1,
-      }
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "height": 48,
+          "justifyContent": "center",
+          "position": "absolute",
+          "width": "100%",
+          "zIndex": 1,
+        },
+      ]
     }
   >
-    <Text
+    <View
       style={
         Object {
-          "fontWeight": "600",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 48,
+          "paddingLeft": 16,
         }
       }
     >
-      Issues
-    </Text>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <Text
+          accessibilityRole="header"
+          aria-level="1"
+          numberOfLines={1}
+          style={
+            Object {
+              "color": "rgb(28, 28, 30)",
+              "fontFamily": "OpenSans-Bold",
+              "fontSize": 17,
+              "fontWeight": undefined,
+            }
+          }
+        >
+          Home
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <SvgMock
+          style={
+            Object {
+              "marginRight": 16,
+            }
+          }
+        />
+      </View>
+    </View>
   </View>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "marginVertical": 6,
-        "opacity": 1,
+        "paddingHorizontal": 16,
+        "paddingTop": 24,
       }
     }
   >
     <Text
       style={
-        Object {
-          "fontWeight": "600",
-        }
+        Array [
+          Object {
+            "fontSize": 18,
+            "marginBottom": 24,
+          },
+          Object {
+            "fontFamily": "OpenSans-SemiBold",
+          },
+        ]
       }
     >
-      Repositories
+      My Work
     </Text>
-  </View>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "marginVertical": 6,
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "fontWeight": "600",
+          "marginVertical": 8,
+          "opacity": 1,
         }
       }
     >
-      Pull Requests
-    </Text>
+      <Text
+        style={
+          Array [
+            undefined,
+            Object {
+              "fontFamily": "OpenSans-Regular",
+            },
+          ]
+        }
+      >
+        Issues
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "marginVertical": 8,
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            undefined,
+            Object {
+              "fontFamily": "OpenSans-Regular",
+            },
+          ]
+        }
+      >
+        Pull Requests
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "marginVertical": 8,
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            undefined,
+            Object {
+              "fontFamily": "OpenSans-Regular",
+            },
+          ]
+        }
+      >
+        Repositories
+      </Text>
+    </View>
   </View>
 </View>
 `;
