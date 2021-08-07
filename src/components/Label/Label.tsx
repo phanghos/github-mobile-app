@@ -1,6 +1,7 @@
-import { isHexColorLight } from '@utils/utils';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Text } from '@components/Text/Text';
+import { isHexColorLight } from '@utils/utils';
 import styles from './styles';
 
 type LabelProps = {
@@ -20,6 +21,7 @@ export const Label = ({ color, name }: LabelProps) => (
         ...styles.text,
         color: isHexColorLight(color) ? undefined : '#fff',
       }}
+      fontStyle="semiBold"
     >
       {name}
     </Text>

@@ -1,6 +1,7 @@
-import { Label } from '@components/Label/Label';
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { Text } from '@components/Text/Text';
+import { Label } from '@components/Label/Label';
 
 type Item = {
   number: number;
@@ -21,9 +22,10 @@ export const ListItem = ({
 }: ListItemProps) => (
   <View>
     <Text
-      style={{ fontWeight: '200', marginBottom: 4 }}
+      style={{ marginBottom: 4 }}
+      fontStyle="light"
     >{`${username} / ${repo} #${number}`}</Text>
-    <Text style={{ fontWeight: '600' }}>{title}</Text>
+    <Text fontStyle="semiBold">{title}</Text>
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}

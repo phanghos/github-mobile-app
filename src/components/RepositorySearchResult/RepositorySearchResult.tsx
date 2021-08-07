@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, Text, View, ViewProps } from 'react-native';
+import { Image, View, ViewProps } from 'react-native';
 import { Repository } from '@models/Repository';
+import { Text } from '@components/Text/Text';
 import styles from './styles';
 
 type RepositorySearchResultProps = {
@@ -19,9 +20,13 @@ export const RepositorySearchResult = ({
     <View style={style}>
       <View style={styles.ownerContainer}>
         <Image source={{ uri: avatarUrl }} style={styles.avatar} />
-        <Text style={styles.ownerName}>{ownerName}</Text>
+        <Text style={styles.ownerName} fontStyle="light">
+          {ownerName}
+        </Text>
       </View>
-      <Text style={styles.repoName}>{name}</Text>
+      <Text style={styles.repoName} fontStyle="semiBold">
+        {name}
+      </Text>
       <Text style={styles.repoDescription}>{description}</Text>
     </View>
   );

@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    justifyContent: 'center',
     borderRadius: 24,
     marginRight: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: 8,
+    paddingVertical: 1,
   },
-  text: { fontWeight: '600' },
+  text: { fontSize: 12 },
 });

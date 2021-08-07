@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+import { Text } from '@components/Text/Text';
 
 type PlaceHolderProps = {
   title: string;
@@ -25,10 +26,10 @@ export const PlaceHolder = ({ title, subtitle, style }: PlaceHolderProps) => {
       <Text
         style={{
           fontSize: 24,
-          fontWeight: '700',
           textAlign: 'center',
           marginBottom: 16,
         }}
+        fontStyle="bold"
       >
         {title}
       </Text>

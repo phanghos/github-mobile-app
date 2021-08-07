@@ -8,6 +8,8 @@ type SimpleHeaderProps = TopBarProps & {
 
 export const SimpleHeader = ({ title, ...restProps }: SimpleHeaderProps) => (
   <TopBar {...restProps}>
-    <HeaderTitle>{title}</HeaderTitle>
+    <HeaderTitle style={{ fontFamily: 'OpenSans-Bold', fontWeight: undefined }}>
+      {title}
+    </HeaderTitle>
   </TopBar>
 );
