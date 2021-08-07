@@ -25,6 +25,7 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
+    'no-empty': 1,
     'react/prop-types': 0,
     'react/jsx-key': 0,
     'react-native/no-inline-styles': 0,
@@ -33,6 +34,7 @@ module.exports = {
       2,
       { 'ts-ignore': 'allow-with-description' },
     ],
+    '@typescript-eslint/no-empty-function': 1,
   },
   settings: {
     react: {

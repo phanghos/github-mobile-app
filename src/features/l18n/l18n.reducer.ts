@@ -1,9 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const l18nSlice = createSlice({
   name: 'l18n',
   initialState: { locale: 'en' },
-  reducers: {},
+  reducers: {
+    setLocale: (state, { payload }: PayloadAction<string>) => {
+      state.locale = payload;
+    },
+  },
 });
 
 export const l18nActions = l18nSlice.actions;

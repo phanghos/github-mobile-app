@@ -5,15 +5,17 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LoginScreen } from '@screens/LoginScreen/LoginScreen';
 import { HomeScreen } from '@screens/HomeScreen/HomeScreen';
 import { IssuesScreen } from '@screens/IssuesScreen/IssuesScreen';
-import { RepositoriesScreen } from '@screens/RepositoriesScreen/RepositoriesScreen';
 import { PullRequestsScreen } from '@screens/PullRequestsScreen/PullRequestsScreen';
+import { RepositoriesScreen } from '@screens/RepositoriesScreen/RepositoriesScreen';
 import { SearchScreen } from '@screens/SearchScreen/SearchScreen';
 import { SearchResultsScreen } from '@screens/SearchResultsScreen/SearchResultsScreen';
 import {
   HOME_SCREEN,
   ISSUES_SCREEN,
+  LOGIN_SCREEN,
   PULL_REQUESTS_SCREEN,
   REPOSITORIES_SCREEN,
   SEARCH_RESULTS_SCREEN,
@@ -33,6 +35,11 @@ export const AppNavigator = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <AppStack.Navigator>
+        <AppStack.Screen
+          name={LOGIN_SCREEN}
+          component={LoginScreen}
+          options={{ ...defaultScreenOptions }}
+        />
         <AppStack.Screen
           name={HOME_SCREEN}
           component={HomeScreen}

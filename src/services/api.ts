@@ -1,9 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 import { createServer } from 'miragejs';
+import { UserLoginResponse } from '@models/User';
+import { RepositoriesApiResponse } from '@models/Repository';
+import { PullRequestsApiResponse } from '@models/PullRequest';
+import { IssuesApiResponse } from '@models/Issue';
 import repositoriesMock from '../mocks/jsonMocks/repositoriesMock.json';
 import pullRequetsMock from '../mocks/jsonMocks/pullRequestsMock.json';
 import issuesMock from '../mocks/jsonMocks/issuesMock.json';
 import searchResultsReposMock from '../mocks/jsonMocks/searchResultsReposMock.json';
+import searchResultsPullRequestsMock from '../mocks/jsonMocks/searchResultsPullRequestsMock.json';
+import authMock from '../mocks/jsonMocks/authMock.json';
 
 // @ts-ignore TODO Fix types
 if (window.server) {
@@ -32,14 +38,34 @@ window.server = createServer({
     this.get('https://api.github.com/search/repositories', () => {
       return searchResultsReposMock;
     });
+    this.get('https://api.github.com/search/issues', () => {
+      return searchResultsPullRequestsMock;
+    });
+    this.get('https://api.github.com/user', () => {
+      return authMock;
+    });
   },
 });
 
 type ApiServiceApi = {
-  getRepos: (username: string) => Promise<AxiosResponse>;
-  getPullRequests: (username: string, repo: string) => Promise<AxiosResponse>;
-  getIssues: (username: string, repo: string) => Promise<AxiosResponse>;
-  searchRepos: (query: string) => Promise<AxiosResponse>;
+  login: () => Promise<AxiosResponse<UserLoginResponse>>;
+  getRepos: (
+    username: string,
+  ) => Promise<AxiosResponse<RepositoriesApiResponse>>;
+  getPullRequests: (
+    username: string,
+    repo: string,
+  ) => Promise<AxiosResponse<PullRequestsApiResponse>>;
+  getIssues: (
+    username: string,
+    repo: string,
+  ) => Promise<AxiosResponse<IssuesApiResponse>>;
+  searchRepos: (
+    query: string,
+  ) => Promise<AxiosResponse<{ items: RepositoriesApiResponse }>>;
+  searchPullRequests: (
+    query: string,
+  ) => Promise<AxiosResponse<{ items: PullRequestsApiResponse }>>;
 };
 
 export const ApiService: ApiServiceApi = (() => {
@@ -47,6 +73,8 @@ export const ApiService: ApiServiceApi = (() => {
     baseURL: 'https://api.github.com/',
     headers: { Accept: 'application/vnd.github.v3+json' },
   });
+
+  const login = () => instance.get('user');
 
   const getRepos = (username: string) =>
     instance.get(`users/${username}/repos`);
@@ -60,10 +88,15 @@ export const ApiService: ApiServiceApi = (() => {
   const searchRepos = (query: string) =>
     instance.get(`search/repositories?q=${query}`);
 
+  const searchPullRequests = (query: string) =>
+    instance.get(`search/issues?q=${query}+is:pull-request`);
+
   return {
+    login,
     getRepos,
     getPullRequests,
     getIssues,
     searchRepos,
+    searchPullRequests,
   };
 })();

@@ -7,13 +7,14 @@ import {
   View,
 } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import Animated from 'react-native-reanimated';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
 import { Repository } from '@models/Repository';
 import { useSearch } from './hooks/useSearch';
 import { RepositorySearchResult } from '@components/RepositorySearchResult/RepositorySearchResult';
 import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
 import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
-import Animated from 'react-native-reanimated';
+import { ListItem } from '@components/ListItem/ListItem';
 
 type ScreenProp = RouteProp<
   {
@@ -41,10 +42,15 @@ const Separator = () => (
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<Repository>>(FlatList);
 
+const componentMap: Record<string, React.ReactNode> = {
+  Repositories: RepositorySearchResult,
+  ['Pull Requests']: ListItem,
+};
+
 export const SearchResultsScreen = () => {
   const { params } = useRoute<ScreenProp>();
   const { isLoading, data } = useSearch({
-    section: 'Repositories',
+    section: params.section,
     query: 'react',
   }); // useSearch({ ...params });
   const { opacity, scrollHandler } = useHeaderAnimation();
@@ -57,13 +63,28 @@ export const SearchResultsScreen = () => {
           <ActivityIndicator style={{ flex: 1, backgroundColor: '#fff' }} />
         ) : (
           <AnimatedFlatList
-            data={data}
-            renderItem={({ item }: ListRenderItemInfo<Repository>) => (
-              <RepositorySearchResult
-                repo={item}
-                style={{ paddingHorizontal: 16 }}
-              />
-            )}
+            data={data as any}
+            renderItem={({ item }: ListRenderItemInfo<any>) => {
+              const Component = componentMap[params.section];
+
+              switch (params.section) {
+                case 'Repositories':
+                  return (
+                    <Component repo={item} style={{ paddingHorizontal: 16 }} />
+                  );
+                case 'Pull Requests':
+                  return (
+                    <Component
+                      username={item.user.username}
+                      repo={item.title}
+                      item={item}
+                      style={{ paddingHorizontal: 16 }}
+                    />
+                  );
+              }
+
+              return null;
+            }}
             keyExtractor={keyExtractor}
             ItemSeparatorComponent={Separator}
             contentContainerStyle={{ paddingTop: 64 }}
