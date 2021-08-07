@@ -1,6 +1,7 @@
-import { Repository } from '@models/Repository';
 import React from 'react';
 import { Image, Text, View, ViewProps } from 'react-native';
+import { Repository } from '@models/Repository';
+import styles from './styles';
 
 type RepositorySearchResultProps = {
   repo: Pick<Repository, 'owner' | 'name' | 'description'>;
@@ -16,15 +17,12 @@ export const RepositorySearchResult = ({
 }: RepositorySearchResultProps) => {
   return (
     <View style={style}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-          source={{ uri: avatarUrl }}
-          style={{ width: 15, height: 15, borderRadius: 10, marginRight: 8 }}
-        />
-        <Text style={{ fontWeight: '200' }}>{ownerName}</Text>
+      <View style={styles.ownerContainer}>
+        <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+        <Text style={styles.ownerName}>{ownerName}</Text>
       </View>
-      <Text style={{ fontWeight: '600', marginVertical: 8 }}>{name}</Text>
-      <Text>{description}</Text>
+      <Text style={styles.repoName}>{name}</Text>
+      <Text style={styles.repoDescription}>{description}</Text>
     </View>
   );
 };
