@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { Text } from '@components/Text/Text';
 import { authActions } from '@features/auth/auth.reducer';
 import {
   isUserLoggingInSelector,
   userSelector,
 } from '@features/auth/auth.selectors';
-import { useNavigation } from '@react-navigation/native';
-import { HOME_SCREEN } from 'consts/navigationConsts';
+// import { HOME_SCREEN } from 'consts/navigationConsts';
 
 type ButtonProps = {
   text: string;
@@ -27,7 +27,6 @@ const Button = ({ text, backgroundColor, textColor, onPress }: ButtonProps) => (
       justifyContent: 'center',
       marginVertical: 8,
       backgroundColor,
-
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -55,7 +54,7 @@ export const LoginScreen = () => {
 
   useEffect(() => {
     if (loggedUser) {
-      navigate(HOME_SCREEN);
+      // navigate(HOME_SCREEN);
     }
   }, [loggedUser, navigate]);
 

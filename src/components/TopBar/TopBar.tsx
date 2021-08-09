@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-import { HeaderBackButton } from '@react-navigation/stack';
+// import { HeaderBackButton } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { SearchIcon } from 'assets/icons';
 import { SEARCH_SCREEN } from 'consts/navigationConsts';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 export type TopBarProps = {
   showBack?: boolean;
@@ -14,6 +15,12 @@ export type TopBarProps = {
   opacity?: Animated.SharedValue<number>;
 };
 
+type ParamsList = {
+  [SEARCH_SCREEN]: undefined;
+};
+
+type NavigationProp = BottomTabNavigationProp<ParamsList, keyof ParamsList>;
+
 export const TopBar = ({
   showBack = true,
   showSearch = false,
@@ -22,7 +29,7 @@ export const TopBar = ({
   opacity,
   children,
 }: PropsWithChildren<TopBarProps>) => {
-  const { goBack, navigate } = useNavigation();
+  const { goBack, navigate } = useNavigation<NavigationProp>();
   const opacityStyle = useAnimatedStyle(() => ({
     opacity: opacity?.value ?? 1,
   }));
@@ -48,15 +55,19 @@ export const TopBar = ({
           height: 48,
         }}
       >
-        {showBack && (
+        {/* {showBack && (
           <HeaderBackButton
             labelVisible={false}
             onPress={onBackPress || goBack}
           />
-        )}
+        )} */}
         <View style={{ flex: 1 }}>{children}</View>
         {showSearch && (
-          <TouchableOpacity onPress={() => navigate(SEARCH_SCREEN)}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate(SEARCH_SCREEN);
+            }}
+          >
             <SearchIcon style={{ marginRight: 16 }} />
           </TouchableOpacity>
         )}
@@ -64,7 +75,19 @@ export const TopBar = ({
       {showBottomLine && (
         <Animated.View
           style={[
-            { width: '100%', height: 1, backgroundColor: '#E8E8E8' },
+            {
+              width: '100%',
+              height: 1,
+              backgroundColor: '#E8E8E8',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            },
             opacityStyle,
           ]}
         />

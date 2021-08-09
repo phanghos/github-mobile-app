@@ -28,6 +28,7 @@ module.exports = {
     'no-empty': 1,
     'react/prop-types': 0,
     'react/jsx-key': 0,
+    'react/display-name': 0, // Disable temporarily
     'react-native/no-inline-styles': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/ban-ts-comment': [
@@ -35,6 +36,7 @@ module.exports = {
       { 'ts-ignore': 'allow-with-description' },
     ],
     '@typescript-eslint/no-empty-function': 1,
+    '@typescript-eslint/no-explicit-any': 2,
   },
   settings: {
     react: {

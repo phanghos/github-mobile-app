@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import {
   ActivityIndicator,
@@ -16,7 +17,7 @@ import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
 import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
 import { ListItem } from '@components/ListItem/ListItem';
 
-type ScreenProp = RouteProp<
+type NavigationProp = RouteProp<
   {
     [SEARCH_RESULTS_SCREEN]: {
       section: string;
@@ -48,7 +49,7 @@ const componentMap: Record<string, React.ReactNode> = {
 };
 
 export const SearchResultsScreen = () => {
-  const { params } = useRoute<ScreenProp>();
+  const { params } = useRoute<NavigationProp>();
   const { isLoading, data } = useSearch({
     section: params.section,
     query: 'react',
@@ -65,7 +66,7 @@ export const SearchResultsScreen = () => {
           <AnimatedFlatList
             data={data as any}
             renderItem={({ item }: ListRenderItemInfo<any>) => {
-              const Component = componentMap[params.section];
+              const Component = componentMap[params.section] as React.FC<any>;
 
               switch (params.section) {
                 case 'Repositories':

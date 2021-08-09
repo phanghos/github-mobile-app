@@ -7,6 +7,8 @@
     "jsx": "react",
     "noEmit": true,
     "isolatedModules": true,
+
+    /** Checks */
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -14,10 +16,11 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {

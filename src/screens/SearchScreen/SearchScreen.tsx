@@ -5,10 +5,17 @@ import { PlaceHolder } from '@components/PlaceHolder/PlaceHolder';
 import { TopBar } from '@components/TopBar/TopBar';
 import { SearchSuggestions } from './components/SearchSuggestions/SearchSuggestions';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+
+type ParamsList = {
+  [SEARCH_RESULTS_SCREEN]: { section: string; query: string };
+};
+
+type NavigationProp = BottomTabNavigationProp<ParamsList, keyof ParamsList>;
 
 export const SearchScreen = () => {
   const [query, setQuery] = useState('');
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<NavigationProp>();
 
   const onSelect = useCallback(
     (section: string, query: string) => {

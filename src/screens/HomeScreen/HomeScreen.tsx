@@ -8,6 +8,7 @@ import {
 } from 'consts/navigationConsts';
 import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
 import { Text } from '@components/Text/Text';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 const Item = ({ text, onPress }: { text: string; onPress?: () => void }) => {
   return (
@@ -17,8 +18,15 @@ const Item = ({ text, onPress }: { text: string; onPress?: () => void }) => {
   );
 };
 
+type ParamsList = {
+  [ISSUES_SCREEN]: undefined;
+  [PULL_REQUESTS_SCREEN]: undefined;
+  [REPOSITORIES_SCREEN]: undefined;
+};
+
+type NavigationProp = BottomTabNavigationProp<ParamsList, keyof ParamsList>;
 export const HomeScreen = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<NavigationProp>();
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 48 }}>
