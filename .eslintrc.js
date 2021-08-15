@@ -25,6 +25,7 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
+    curly: 1,
     'no-empty': 1,
     'react/prop-types': 0,
     'react/jsx-key': 0,

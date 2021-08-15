@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { PlaceHolder } from '@components/PlaceHolder/PlaceHolder';
 import { TopBar } from '@components/TopBar/TopBar';
-import { SearchSuggestions } from './components/SearchSuggestions/SearchSuggestions';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { SearchSuggestions } from './components/SearchSuggestions/SearchSuggestions';
 
 type ParamsList = {
   [SEARCH_RESULTS_SCREEN]: { section: string; query: string };

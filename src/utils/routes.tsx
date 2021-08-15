@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 import {
   createStackNavigator,
@@ -22,17 +24,14 @@ import {
   SEARCH_RESULTS_SCREEN,
   SEARCH_SCREEN,
 } from 'consts/navigationConsts';
-import { useSelector } from 'react-redux';
 import { userSelector } from '@features/auth/auth.selectors';
-import { View } from 'react-native';
+import { AccountsBottomSheet } from '@components/AccountsBottomSheet/AccountsBottomSheet';
 import {
   HomeIcon,
   NotificationsIcon,
   ProfileIcon,
   SearchIcon,
 } from 'assets/icons';
-import { useBottomSheetAnimation } from '@hooks/useBottomSheetAnimation';
-import { AccountsBottomSheet } from '@components/AccountsBottomSheet/AccountsBottomSheet';
 
 const defaultScreenOptions: StackNavigationOptions = {
   headerShown: false,
@@ -40,8 +39,6 @@ const defaultScreenOptions: StackNavigationOptions = {
 };
 
 const AppStack = createStackNavigator();
-
-const bottomSheetHeight = 400;
 
 const HomeNavigator = () => {
   const { formatMessage } = useIntl();
@@ -110,40 +107,29 @@ const BottomBar = createBottomTabNavigator();
 
 const ScreenStub = () => <View />;
 
-// const BottomBarTitle = ({ text }: { text: string }) => {
-//   return null;
-// };
-
 const iconProps = { width: 30, height: 30 };
 
 export const AppNavigator = () => {
-  const { gestureHandler, bottomSheetStyle, Overlay, show, hide } =
-    useBottomSheetAnimation({ height: bottomSheetHeight });
+  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+  const show = useCallback(() => setIsBottomSheetVisible(true), []);
+  const onClose = useCallback(() => setIsBottomSheetVisible(false), []);
+  const user = useSelector(userSelector);
 
   return (
     <>
-      <Overlay />
-      <AccountsBottomSheet
-        height={bottomSheetHeight}
-        style={bottomSheetStyle}
-        gestureHandler={gestureHandler}
-        hide={hide}
-      />
+      <AccountsBottomSheet isVisible={isBottomSheetVisible} onClose={onClose} />
       <SafeAreaView style={{ flex: 1 }}>
         <BottomBar.Navigator
           screenListeners={{
             tabLongPress: event => {
-              if (event.target?.includes('rofile')) {
+              if (event.target?.includes('rofile') && user) {
                 show();
               }
             },
           }}
           screenOptions={{
             headerShown: false,
-            tabBarStyle: {
-              // height: 48,
-              height: 56,
-            },
+            tabBarStyle: { height: 56 },
             tabBarItemStyle: {},
           }}
         >

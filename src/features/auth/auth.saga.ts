@@ -8,7 +8,9 @@ function* login() {
       ApiService.login,
     );
     yield put(authActions.setLoggedUser(user));
-  } catch (error) {}
+  } catch (error) {
+    // Do nothing
+  }
 }
 
 export function* authSaga() {

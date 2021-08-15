@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import { Text } from '@components/Text/Text';
 import { authActions } from '@features/auth/auth.reducer';
-import {
-  isUserLoggingInSelector,
-  userSelector,
-} from '@features/auth/auth.selectors';
-// import { HOME_SCREEN } from 'consts/navigationConsts';
+import { isUserLoggingInSelector } from '@features/auth/auth.selectors';
 
 type ButtonProps = {
   text: string;
@@ -49,14 +44,6 @@ const Button = ({ text, backgroundColor, textColor, onPress }: ButtonProps) => (
 export const LoginScreen = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isUserLoggingInSelector);
-  const loggedUser = useSelector(userSelector);
-  const { navigate } = useNavigation();
-
-  useEffect(() => {
-    if (loggedUser) {
-      // navigate(HOME_SCREEN);
-    }
-  }, [loggedUser, navigate]);
 
   return (
     <View
@@ -83,7 +70,9 @@ export const LoginScreen = () => {
             text="SIGN IN WITH GITHUB ENTERPRISE"
             backgroundColor="#fff"
             textColor="#000"
-            onPress={() => {}}
+            onPress={() => {
+              // Do nothing
+            }}
           />
         </>
       )}
