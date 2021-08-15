@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -38,22 +38,22 @@ const defaultScreenOptions: StackNavigationOptions = {
   headerBackTitleVisible: false,
 };
 
-const AppStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => {
   const { formatMessage } = useIntl();
   const user = useSelector(userSelector);
 
   return (
-    <AppStack.Navigator>
+    <HomeStack.Navigator>
       {!user && (
-        <AppStack.Screen
+        <HomeStack.Screen
           name={LOGIN_SCREEN}
           component={LoginScreen}
           options={{ ...defaultScreenOptions }}
         />
       )}
-      <AppStack.Screen
+      <HomeStack.Screen
         name={HOME_SCREEN}
         component={HomeScreen}
         options={{
@@ -61,7 +61,7 @@ const HomeNavigator = () => {
           title: formatMessage({ id: 'global.home' }),
         }}
       />
-      <AppStack.Screen
+      <HomeStack.Screen
         name={ISSUES_SCREEN}
         component={IssuesScreen}
         options={{
@@ -69,7 +69,7 @@ const HomeNavigator = () => {
           title: formatMessage({ id: 'global.issues' }),
         }}
       />
-      <AppStack.Screen
+      <HomeStack.Screen
         name={PULL_REQUESTS_SCREEN}
         component={PullRequestsScreen}
         options={{
@@ -77,7 +77,7 @@ const HomeNavigator = () => {
           title: formatMessage({ id: 'global.pullRequests' }),
         }}
       />
-      <AppStack.Screen
+      <HomeStack.Screen
         name={REPOSITORIES_SCREEN}
         component={RepositoriesScreen}
         options={{
@@ -85,21 +85,21 @@ const HomeNavigator = () => {
           title: formatMessage({ id: 'global.repos' }),
         }}
       />
-      <AppStack.Screen
+      <HomeStack.Screen
         name={SEARCH_SCREEN}
         component={SearchScreen}
         options={{
           ...defaultScreenOptions,
         }}
       />
-      <AppStack.Screen
+      <HomeStack.Screen
         name={SEARCH_RESULTS_SCREEN}
         component={SearchResultsScreen}
         options={{
           ...defaultScreenOptions,
         }}
       />
-    </AppStack.Navigator>
+    </HomeStack.Navigator>
   );
 };
 
@@ -111,8 +111,8 @@ const iconProps = { width: 30, height: 30 };
 
 export const AppNavigator = () => {
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-  const show = useCallback(() => setIsBottomSheetVisible(true), []);
-  const onClose = useCallback(() => setIsBottomSheetVisible(false), []);
+  const show = () => setIsBottomSheetVisible(true);
+  const onClose = () => setIsBottomSheetVisible(false);
   const user = useSelector(userSelector);
 
   return (
