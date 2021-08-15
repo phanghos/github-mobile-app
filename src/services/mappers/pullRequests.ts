@@ -3,10 +3,10 @@ import {
   PullRequestsApiResponse,
 } from '@models/PullRequest';
 
-export const mapPullRequestsApiResponse = (prs: PullRequestsApiResponse) =>
-  prs.map(mapPullRequestFromApi);
+export const toPullRequests = (prs: PullRequestsApiResponse) =>
+  prs.map(toPullRequest);
 
-export const mapPullRequestFromApi = (pr: PullRequestFromApi) => ({
+export const toPullRequest = (pr: PullRequestFromApi) => ({
   ...pr,
   user: { username: pr.user.login, avatarUrl: pr.user.avatar_url },
 });

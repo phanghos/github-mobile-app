@@ -6,9 +6,10 @@ import { PlaceHolder } from '@components/PlaceHolder/PlaceHolder';
 import { TopBar } from '@components/TopBar/TopBar';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
 import { SearchSuggestions } from './components/SearchSuggestions/SearchSuggestions';
+import { Section } from '@screens/SearchResultsScreen/hooks/useSearch';
 
 type ParamsList = {
-  [SEARCH_RESULTS_SCREEN]: { section: string; query: string };
+  [SEARCH_RESULTS_SCREEN]: { section: Section; query: string };
 };
 
 type NavigationProp = BottomTabNavigationProp<ParamsList, keyof ParamsList>;
@@ -18,7 +19,7 @@ export const SearchScreen = () => {
   const { navigate } = useNavigation<NavigationProp>();
 
   const onSelect = useCallback(
-    (section: string, query: string) => {
+    (section: Section, query: string) => {
       navigate(SEARCH_RESULTS_SCREEN, { section, query });
     },
     [navigate],

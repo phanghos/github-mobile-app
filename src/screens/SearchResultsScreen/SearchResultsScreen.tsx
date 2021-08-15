@@ -11,7 +11,7 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import Animated from 'react-native-reanimated';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
 import { Repository } from '@models/Repository';
-import { useSearch } from './hooks/useSearch';
+import { Section, useSearch } from './hooks/useSearch';
 import { RepositorySearchResult } from '@components/RepositorySearchResult/RepositorySearchResult';
 import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
 import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
@@ -20,7 +20,7 @@ import { ListItem } from '@components/ListItem/ListItem';
 type NavigationProp = RouteProp<
   {
     [SEARCH_RESULTS_SCREEN]: {
-      section: string;
+      section: Section;
       query: string;
     };
   },

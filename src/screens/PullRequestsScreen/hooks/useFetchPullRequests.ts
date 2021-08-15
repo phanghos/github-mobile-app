@@ -2,14 +2,14 @@ import { pipe } from 'lodash/fp';
 import { useFetchResource } from '@hooks/useFetchResource';
 import { PullRequest } from '@models/PullRequest';
 import { ApiService } from '@services/api';
-import { mapPullRequestsApiResponse } from '@services/mappers/pullRequests';
+import { toPullRequests } from '@services/mappers/pullRequests';
 
 export const useFetchPullRequests = (username: string, repo: string) => {
   const getData = () => {
     setIsLoading(true);
 
     ApiService.getPullRequests(username, repo)
-      .then(({ data }) => pipe(mapPullRequestsApiResponse, setData)(data))
+      .then(({ data }) => pipe(toPullRequests, setData)(data))
       .catch(setError)
       .finally(() => setIsLoading(false));
   };

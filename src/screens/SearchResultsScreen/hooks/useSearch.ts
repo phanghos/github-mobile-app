@@ -2,12 +2,14 @@ import { AxiosResponse } from 'axios';
 import { searchPullRequests, searchRepos } from '@services/search';
 import { RepositoriesApiResponse } from '@models/Repository';
 import { useFetchResource } from '@hooks/useFetchResource';
-import { mapRepositoriesApiResponse } from '@services/mappers/repos';
+import { toRepositories } from '@services/mappers/repos';
 import { PullRequestsApiResponse } from '@models/PullRequest';
-import { mapPullRequestsApiResponse } from '@services/mappers/pullRequests';
+import { toPullRequests } from '@services/mappers/pullRequests';
+
+export type Section = 'Repositories' | 'Pull Requests';
 
 type UseSearchProps = {
-  section: string;
+  section: Section;
   query: string;
 };
 
@@ -15,32 +17,52 @@ type SearchResponseType = {
   items: RepositoriesApiResponse | PullRequestsApiResponse;
 };
 
+function isRepository(
+  response: SearchResponseType['items'],
+): response is RepositoriesApiResponse {
+  return 'forks' in response[0];
+}
+
+function isPr(
+  response: SearchResponseType['items'],
+): response is PullRequestsApiResponse {
+  return 'assignee' in response[0];
+}
+
 const sectionHandlersMap: Record<
-  string,
+  Section,
   (query: string) => Promise<AxiosResponse<SearchResponseType>>
 > = {
   Repositories: searchRepos,
   ['Pull Requests']: searchPullRequests,
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const responseMappersMap: Record<string, Function> = {
-  Repositories: mapRepositoriesApiResponse,
-  ['Pull Requests']: mapPullRequestsApiResponse,
+const responseMappersMap = {
+  Repositories: toRepositories,
+  ['Pull Requests']: toPullRequests,
 };
 
 export const useSearch = ({ section, query }: UseSearchProps) => {
   const getData = () => {
     sectionHandlersMap[section](query)
-      .then(({ data: { items } }) =>
-        setData(responseMappersMap[section](items)),
-      )
+      .then(({ data: { items } }) => {
+        if (items.length) {
+          return;
+        }
+        if (isRepository(items)) {
+          setData(responseMappersMap.Repositories(items));
+        } else if (isPr(items)) {
+          setData(responseMappersMap['Pull Requests'](items));
+        }
+      })
       .catch(setError)
       .finally(() => setIsLoading(false));
   };
 
   const { isLoading, setIsLoading, data, setData, error, setError } =
-    useFetchResource<SearchResponseType['items']>(getData, []);
+    useFetchResource<
+      ReturnType<typeof toRepositories> | ReturnType<typeof toPullRequests>
+    >(getData, []);
 
   return { isLoading, data, error };
 };

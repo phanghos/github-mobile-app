@@ -1,9 +1,10 @@
+import { Section } from '@screens/SearchResultsScreen/hooks/useSearch';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 type SearchSuggestionsProps = {
   query: string;
-  onSelect: (section: string, query: string) => void;
+  onSelect: (section: Section, query: string) => void;
 };
 
 const Item = ({
@@ -11,7 +12,7 @@ const Item = ({
   query,
   onSelect,
 }: {
-  section: string;
+  section: Section;
   query: string;
   onSelect: SearchSuggestionsProps['onSelect'];
 }) => (
@@ -25,12 +26,12 @@ const Item = ({
   </TouchableOpacity>
 );
 
-const items = [
+const items: Section[] = [
   'Repositories',
-  'Issues',
+  // 'Issues',
   'Pull Requests',
-  'People',
-  'Organizations',
+  // 'People',
+  // 'Organizations',
 ];
 
 export const SearchSuggestions = ({

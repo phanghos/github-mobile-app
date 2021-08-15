@@ -1,9 +1,9 @@
 import { RepositoriesApiResponse, RepositoryFromApi } from '@models/Repository';
 
-export const mapRepositoriesApiResponse = (repos: RepositoriesApiResponse) =>
-  repos.map(mapRepositoryFromApi);
+export const toRepositories = (repos: RepositoriesApiResponse) =>
+  repos.map(toRepository);
 
-export const mapRepositoryFromApi = (repo: RepositoryFromApi) => {
+export const toRepository = (repo: RepositoryFromApi) => {
   const {
     owner: { login, avatar_url },
   } = repo;
