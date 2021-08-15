@@ -22,7 +22,7 @@ type UseBottomSheetAnimationProps = {
 
 const damping = 16;
 
-const defaultAnimationDuration = 16;
+const defaultAnimationDuration = 350;
 
 export const useBottomSheetAnimation = ({
   height,
@@ -58,7 +58,7 @@ export const useBottomSheetAnimation = ({
     },
     onEnd: () => {
       if (translationY.value > height / 3) {
-        runOnJS(hide)();
+        runOnJS(onClose)();
       } else {
         runOnJS(show)();
       }
@@ -87,7 +87,9 @@ export const useBottomSheetAnimation = ({
   }, [translationY]);
 
   const overlay = () => (
-    <TouchableWithoutFeedback onPress={closeOnClickOutside ? hide : undefined}>
+    <TouchableWithoutFeedback
+      onPress={closeOnClickOutside ? onClose : undefined}
+    >
       <Animated.View
         style={[
           {
