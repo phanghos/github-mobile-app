@@ -43,17 +43,9 @@ const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => {
   const { formatMessage } = useIntl();
-  const user = useSelector(userSelector);
 
   return (
     <HomeStack.Navigator>
-      {!user && (
-        <HomeStack.Screen
-          name={LOGIN_SCREEN}
-          component={LoginScreen}
-          options={{ ...defaultScreenOptions }}
-        />
-      )}
       <HomeStack.Screen
         name={HOME_SCREEN}
         component={HomeScreen}
@@ -104,8 +96,6 @@ const HomeNavigator = () => {
   );
 };
 
-const BottomBar = createBottomTabNavigator();
-
 const ScreenStub = () => <View />;
 
 const iconProps = { width: 30, height: 30 };
@@ -128,89 +118,121 @@ const useHandleAccountsBottomSheet = () => {
   return { onClose, isBottomSheetVisible, onTabLongPress };
 };
 
+const UnauthorizedStack = createStackNavigator();
+
+const UnauthorizedNavigator = () => {
+  return (
+    <UnauthorizedStack.Navigator>
+      <UnauthorizedStack.Screen
+        name={LOGIN_SCREEN}
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+    </UnauthorizedStack.Navigator>
+  );
+};
+
+const AuthorizedStack = createBottomTabNavigator();
+
+type AuthorizedNavigatorProps = Pick<
+  ReturnType<typeof useHandleAccountsBottomSheet>,
+  'onTabLongPress'
+>;
+
+const AuthorizedNavigator = ({ onTabLongPress }: AuthorizedNavigatorProps) => {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <AuthorizedStack.Navigator
+        tabBar={props => (
+          <BottomTabBar {...props} onTabLongPress={onTabLongPress} />
+        )}
+        // screenListeners={{
+        //   tabLongPress: event => {
+        //     if (event.target?.includes('rofile') && user) {
+        //       show();
+        //     }
+        //   },
+        // }}
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { height: 56 },
+          tabBarItemStyle: {},
+        }}
+      >
+        <AuthorizedStack.Screen
+          name={'HomeStack'}
+          component={HomeNavigator}
+          options={{
+            tabBarShowLabel: true,
+            tabBarIcon: () => <HomeIcon {...iconProps} />,
+            title: 'Home',
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'OpenSans-Regular',
+              fontWeight: undefined,
+            },
+          }}
+        />
+        <AuthorizedStack.Screen
+          name={'NotificationsStack'}
+          component={ScreenStub}
+          options={{
+            tabBarShowLabel: true,
+            tabBarIcon: () => <NotificationsIcon {...iconProps} />,
+            title: 'Notifications',
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'OpenSans-Regular',
+              fontWeight: undefined,
+            },
+          }}
+        />
+        <AuthorizedStack.Screen
+          name={'ExploreStack'}
+          component={ScreenStub}
+          options={{
+            tabBarShowLabel: true,
+            tabBarIcon: () => <SearchIcon {...iconProps} />,
+            title: 'Explore',
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'OpenSans-Regular',
+              fontWeight: undefined,
+            },
+          }}
+        />
+        <AuthorizedStack.Screen
+          name={'ProfileStack'}
+          component={ScreenStub}
+          options={{
+            tabBarShowLabel: true,
+            tabBarIcon: () => <ProfileIcon {...iconProps} />,
+            title: 'Profile',
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'OpenSans-Regular',
+              fontWeight: undefined,
+            },
+          }}
+        />
+      </AuthorizedStack.Navigator>
+    </SafeAreaView>
+  );
+};
+
 export const AppNavigator = () => {
   const { onClose, isBottomSheetVisible, onTabLongPress } =
     useHandleAccountsBottomSheet();
+  const user = useSelector(userSelector);
 
   return (
     <>
       <AccountsBottomSheet isVisible={isBottomSheetVisible} onClose={onClose} />
-      <SafeAreaView style={{ flex: 1 }}>
-        <BottomBar.Navigator
-          tabBar={props => (
-            <BottomTabBar {...props} onTabLongPress={onTabLongPress} />
-          )}
-          // screenListeners={{
-          //   tabLongPress: event => {
-          //     if (event.target?.includes('rofile') && user) {
-          //       show();
-          //     }
-          //   },
-          // }}
-          screenOptions={{
-            headerShown: false,
-            tabBarStyle: { height: 56 },
-            tabBarItemStyle: {},
-          }}
-        >
-          <BottomBar.Screen
-            name={'HomeStack'}
-            component={HomeNavigator}
-            options={{
-              tabBarShowLabel: true,
-              tabBarIcon: () => <HomeIcon {...iconProps} />,
-              title: 'Home',
-              tabBarLabelStyle: {
-                fontSize: 12,
-                fontFamily: 'OpenSans-Regular',
-                fontWeight: undefined,
-              },
-            }}
-          />
-          <BottomBar.Screen
-            name={'NotificationsStack'}
-            component={ScreenStub}
-            options={{
-              tabBarShowLabel: true,
-              tabBarIcon: () => <NotificationsIcon {...iconProps} />,
-              title: 'Notifications',
-              tabBarLabelStyle: {
-                fontSize: 12,
-                fontFamily: 'OpenSans-Regular',
-                fontWeight: undefined,
-              },
-            }}
-          />
-          <BottomBar.Screen
-            name={'ExploreStack'}
-            component={ScreenStub}
-            options={{
-              tabBarShowLabel: true,
-              tabBarIcon: () => <SearchIcon {...iconProps} />,
-              title: 'Explore',
-              tabBarLabelStyle: {
-                fontSize: 12,
-                fontFamily: 'OpenSans-Regular',
-                fontWeight: undefined,
-              },
-            }}
-          />
-          <BottomBar.Screen
-            name={'ProfileStack'}
-            component={ScreenStub}
-            options={{
-              tabBarShowLabel: true,
-              tabBarIcon: () => <ProfileIcon {...iconProps} />,
-              title: 'Profile',
-              tabBarLabelStyle: {
-                fontSize: 12,
-                fontFamily: 'OpenSans-Regular',
-                fontWeight: undefined,
-              },
-            }}
-          />
-        </BottomBar.Navigator>
-      </SafeAreaView>
+      {!user ? (
+        <UnauthorizedNavigator />
+      ) : (
+        <AuthorizedNavigator onTabLongPress={onTabLongPress} />
+      )}
     </>
   );
 };
