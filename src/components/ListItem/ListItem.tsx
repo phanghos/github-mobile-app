@@ -9,7 +9,7 @@ type Item = {
   labels: Array<{ id: number; name: string; color: string }>;
 };
 
-type ListItemProps = {
+export type ListItemProps = {
   username: string;
   repo: string;
   item: Item;

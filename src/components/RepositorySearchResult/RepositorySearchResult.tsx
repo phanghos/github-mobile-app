@@ -4,7 +4,7 @@ import { Repository } from '@models/Repository';
 import { Text } from '@components/Text/Text';
 import styles from './styles';
 
-type RepositorySearchResultProps = {
+export type RepositorySearchResultProps = {
   repo: Pick<Repository, 'owner' | 'name' | 'description'>;
 } & Pick<ViewProps, 'style'>;
 

@@ -11,11 +11,11 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import Animated from 'react-native-reanimated';
 import { SEARCH_RESULTS_SCREEN } from 'consts/navigationConsts';
 import { Repository } from '@models/Repository';
-import { Section, useSearch } from './hooks/useSearch';
-import { RepositorySearchResult } from '@components/RepositorySearchResult/RepositorySearchResult';
+import { PullRequest } from '@models/PullRequest';
 import { SimpleHeader } from '@components/SimpleHeader/SimpleHeader';
 import { useHeaderAnimation } from '@hooks/useHeaderAnimation';
-import { ListItem } from '@components/ListItem/ListItem';
+import { Section, useSearch } from './hooks/useSearch';
+import { SearchResult } from './SearchResult/SearchResult';
 
 type NavigationProp = RouteProp<
   {
@@ -43,11 +43,6 @@ const Separator = () => (
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<Repository>>(FlatList);
 
-const componentMap: Record<string, React.ReactNode> = {
-  Repositories: RepositorySearchResult,
-  ['Pull Requests']: ListItem,
-};
-
 export const SearchResultsScreen = () => {
   const { params } = useRoute<NavigationProp>();
   const { isLoading, data } = useSearch({
@@ -58,32 +53,18 @@ export const SearchResultsScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <SimpleHeader title="Repositories" opacity={opacity} />
+      <SimpleHeader title={params.section} opacity={opacity} />
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
         {isLoading && !data ? (
           <ActivityIndicator style={{ flex: 1, backgroundColor: '#fff' }} />
         ) : (
           <AnimatedFlatList
             data={data as any}
-            renderItem={({ item }: ListRenderItemInfo<any>) => {
-              const Component = componentMap[params.section] as React.FC<any>;
-
-              switch (params.section) {
-                case 'Repositories':
-                  return (
-                    <Component repo={item} style={{ paddingHorizontal: 16 }} />
-                  );
-                case 'Pull Requests':
-                  return (
-                    <Component
-                      username={item.user.username}
-                      repo={item.title}
-                      item={item}
-                      style={{ paddingHorizontal: 16 }}
-                    />
-                  );
-              }
-            }}
+            renderItem={({
+              item,
+            }: ListRenderItemInfo<Repository | PullRequest>) => (
+              <SearchResult item={item} section={params.section} />
+            )}
             keyExtractor={keyExtractor}
             ItemSeparatorComponent={Separator}
             contentContainerStyle={{ paddingTop: 64 }}
