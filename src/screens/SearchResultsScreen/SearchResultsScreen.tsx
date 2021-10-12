@@ -56,8 +56,6 @@ export const SearchResultsScreen = () => {
   });
   const { opacity, scrollHandler } = useHeaderAnimation();
 
-  console.log('la data es', JSON.stringify(data));
-
   return (
     <View style={{ flex: 1 }}>
       <SimpleHeader title="Repositories" opacity={opacity} />
