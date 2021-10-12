@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Text } from '@components/Text/Text';
 import { authActions } from '@features/auth/auth.reducer';
 import { isUserLoggingInSelector } from '@features/auth/auth.selectors';
+import styles from './styles';
 
 type ButtonProps = {
   text: string;
@@ -15,22 +16,7 @@ type ButtonProps = {
 const Button = ({ text, backgroundColor, textColor, onPress }: ButtonProps) => (
   <TouchableOpacity
     onPress={onPress}
-    style={{
-      width: '100%',
-      height: 48,
-      borderRadius: 6,
-      justifyContent: 'center',
-      marginVertical: 8,
-      backgroundColor,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-    }}
+    style={{ ...styles.buttonContainer, backgroundColor }}
   >
     <Text
       style={{ color: textColor, textAlign: 'center' }}
@@ -43,18 +29,11 @@ const Button = ({ text, backgroundColor, textColor, onPress }: ButtonProps) => (
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(isUserLoggingInSelector);
+  const isUserLoggingIn = useSelector(isUserLoggingInSelector);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-    >
-      {isLoading ? (
+    <View style={styles.container}>
+      {isUserLoggingIn ? (
         <ActivityIndicator style={{ flex: 1 }} />
       ) : (
         <>
