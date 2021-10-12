@@ -1,5 +1,5 @@
-import { User } from '@models/User';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '@models/User';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -8,10 +8,10 @@ const authSlice = createSlice({
     setIsLoading: state => {
       state.isLoading = true;
     },
-    setLoggedUser: (state, { payload }: PayloadAction<User | undefined>) => {
-      state.isLoading = false;
-      state.user = payload;
-    },
+    setLoggedUser: (_, { payload }: PayloadAction<User | undefined>) => ({
+      isLoading: false,
+      user: payload,
+    }),
   },
 });
 

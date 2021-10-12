@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -26,6 +26,7 @@ import {
 } from 'consts/navigationConsts';
 import { userSelector } from '@features/auth/auth.selectors';
 import { AccountsBottomSheet } from '@components/AccountsBottomSheet/AccountsBottomSheet';
+import { BottomBar as BottomTabBar } from '@components/BottomBar/BottomBar';
 import {
   HomeIcon,
   NotificationsIcon,
@@ -109,24 +110,43 @@ const ScreenStub = () => <View />;
 
 const iconProps = { width: 30, height: 30 };
 
-export const AppNavigator = () => {
+const useHandleAccountsBottomSheet = () => {
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
   const show = () => setIsBottomSheetVisible(true);
   const onClose = () => setIsBottomSheetVisible(false);
   const user = useSelector(userSelector);
+
+  const onTabLongPress = useCallback(
+    (routeName: string) => {
+      if (routeName === 'ProfileStack' && user) {
+        show();
+      }
+    },
+    [user],
+  );
+
+  return { onClose, isBottomSheetVisible, onTabLongPress };
+};
+
+export const AppNavigator = () => {
+  const { onClose, isBottomSheetVisible, onTabLongPress } =
+    useHandleAccountsBottomSheet();
 
   return (
     <>
       <AccountsBottomSheet isVisible={isBottomSheetVisible} onClose={onClose} />
       <SafeAreaView style={{ flex: 1 }}>
         <BottomBar.Navigator
-          screenListeners={{
-            tabLongPress: event => {
-              if (event.target?.includes('rofile') && user) {
-                show();
-              }
-            },
-          }}
+          tabBar={props => (
+            <BottomTabBar {...props} onTabLongPress={onTabLongPress} />
+          )}
+          // screenListeners={{
+          //   tabLongPress: event => {
+          //     if (event.target?.includes('rofile') && user) {
+          //       show();
+          //     }
+          //   },
+          // }}
           screenOptions={{
             headerShown: false,
             tabBarStyle: { height: 56 },

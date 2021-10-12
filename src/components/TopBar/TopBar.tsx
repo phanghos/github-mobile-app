@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-// import { HeaderBackButton } from '@react-navigation/stack';
+import { HeaderBackButton } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { SearchIcon } from 'assets/icons';
 import { SEARCH_SCREEN } from 'consts/navigationConsts';
@@ -55,12 +55,12 @@ export const TopBar = ({
           height: 48,
         }}
       >
-        {/* {showBack && (
+        {showBack && (
           <HeaderBackButton
             labelVisible={false}
             onPress={onBackPress || goBack}
           />
-        )} */}
+        )}
         <View style={{ flex: 1 }}>{children}</View>
         {showSearch && (
           <TouchableOpacity

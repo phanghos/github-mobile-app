@@ -4,9 +4,9 @@ const l18nSlice = createSlice({
   name: 'l18n',
   initialState: { locale: 'en' },
   reducers: {
-    setLocale: (state, { payload }: PayloadAction<string>) => {
-      state.locale = payload;
-    },
+    setLocale: (_, { payload }: PayloadAction<string>) => ({
+      locale: payload,
+    }),
   },
 });
 

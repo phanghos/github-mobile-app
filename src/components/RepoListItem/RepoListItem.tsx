@@ -12,14 +12,12 @@ export const RepoListItem = ({
     owner: { ownerName, avatarUrl },
     name,
   },
-}: RepoListItemProps) => {
-  return (
-    <View style={styles.container}>
-      <Image source={{ uri: avatarUrl }} style={styles.avatar} />
-      <View>
-        <Text style={styles.owner}>{ownerName}</Text>
-        <Text style={styles.repoName}>{name}</Text>
-      </View>
+}: RepoListItemProps) => (
+  <View style={styles.container}>
+    <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+    <View>
+      <Text style={styles.owner}>{ownerName}</Text>
+      <Text style={styles.repoName}>{name}</Text>
     </View>
-  );
-};
+  </View>
+);

@@ -19,8 +19,8 @@ export const SearchScreen = () => {
   const { navigate } = useNavigation<NavigationProp>();
 
   const onSelect = useCallback(
-    (section: Section, query: string) => {
-      navigate(SEARCH_RESULTS_SCREEN, { section, query });
+    (section: Section, queryy: string) => {
+      navigate(SEARCH_RESULTS_SCREEN, { section, query: queryy });
     },
     [navigate],
   );

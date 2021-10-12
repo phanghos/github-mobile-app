@@ -1,20 +1,18 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { BottomSheet } from '@components/BottomSheet/BottomSheet';
+import {
+  BottomSheet,
+  RequiredBottomSheetProps,
+} from '@components/BottomSheet/BottomSheet';
 import { Text } from '@components/Text/Text';
 import { userSelector } from '@features/auth/auth.selectors';
 import { CloseIcon } from 'assets/icons';
 
-type AccountsBottomSheetProps = {
-  isVisible: boolean;
-  onClose: () => void;
-};
-
 export const AccountsBottomSheet = ({
   isVisible,
   onClose,
-}: AccountsBottomSheetProps) => {
+}: RequiredBottomSheetProps) => {
   const user = useSelector(userSelector);
 
   if (!user) {

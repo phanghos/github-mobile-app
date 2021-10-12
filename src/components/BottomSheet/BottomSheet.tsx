@@ -8,6 +8,11 @@ type BottomSheetProps = {
   onClose: () => void;
 };
 
+export type RequiredBottomSheetProps = Pick<
+  BottomSheetProps,
+  'isVisible' | 'onClose'
+>;
+
 export const BottomSheet = ({
   isVisible,
   height = 400,

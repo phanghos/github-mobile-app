@@ -8,7 +8,7 @@ type CustomTextProps = TextProps & {
   children: React.ReactNode;
 };
 
-const fontWeightMap: Record<Exclude<FontStyle, undefined>, string> = {
+const fontWeightMap: Record<FontStyle, string> = {
   light: 'OpenSans-Light',
   regular: 'OpenSans-Regular',
   semiBold: 'OpenSans-SemiBold',

@@ -15,19 +15,17 @@ export const RepositorySearchResult = ({
     description,
   },
   style,
-}: RepositorySearchResultProps) => {
-  return (
-    <View style={style}>
-      <View style={styles.ownerContainer}>
-        <Image source={{ uri: avatarUrl }} style={styles.avatar} />
-        <Text style={styles.ownerName} fontStyle="light">
-          {ownerName}
-        </Text>
-      </View>
-      <Text style={styles.repoName} fontStyle="semiBold">
-        {name}
+}: RepositorySearchResultProps) => (
+  <View style={style}>
+    <View style={styles.ownerContainer}>
+      <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+      <Text style={styles.ownerName} fontStyle="light">
+        {ownerName}
       </Text>
-      <Text style={styles.repoDescription}>{description}</Text>
     </View>
-  );
-};
+    <Text style={styles.repoName} fontStyle="semiBold">
+      {name}
+    </Text>
+    <Text style={styles.repoDescription}>{description}</Text>
+  </View>
+);
