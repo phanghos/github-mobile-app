@@ -1,21 +1,23 @@
-import { pipe } from 'lodash/fp';
-import { useFetchResource } from '@hooks/useFetchResource';
-import { PullRequest } from '@models/PullRequest';
+import { useState } from 'react';
+import useSWR from 'swr';
 import { ApiService } from '@services/api';
-import { toPullRequests } from '@services/mappers/pullRequests';
+import { toPullRequests } from '@services/mappers/pullRequests.mappers';
+import { PullRequest, PullRequestsApiResponse } from '@models/PullRequest';
 
 export const useFetchPullRequests = (username: string, repo: string) => {
-  const getData = () => {
-    setIsLoading(true);
+  const { isValidating, data, error } = useSWR<PullRequestsApiResponse>(
+    `repos/${username}/${repo}/pulls`,
+    ApiService.fetcher,
+    {
+      onSuccess: dataa => {
+        setPullRequests(toPullRequests(dataa));
+      },
+    },
+  );
 
-    ApiService.getPullRequests(username, repo)
-      .then(({ data }) => pipe(toPullRequests, setData)(data))
-      .catch(setError)
-      .finally(() => setIsLoading(false));
-  };
+  const [pullRequests, setPullRequests] = useState<PullRequest[] | undefined>(
+    data ? toPullRequests(data) : undefined,
+  );
 
-  const { isLoading, setIsLoading, data, setData, error, setError } =
-    useFetchResource<PullRequest[]>(getData, []);
-
-  return { isLoading, data: data as PullRequest[], error };
+  return { isLoading: isValidating, data: pullRequests, error };
 };

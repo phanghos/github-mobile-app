@@ -1,8 +1,14 @@
-import { toPullRequest } from '@services/mappers/pullRequests';
-import pullRequestsMock from '../mocks/jsonMocks/pullRequestsMock.json';
-
-export type PullRequestFromApi = typeof pullRequestsMock[0];
+export type PullRequestFromApi = {
+  id: number;
+  number: number;
+  title: string;
+  state: 'open' | 'closed';
+  labels: Array<{ id: number; name: string; color: string }>;
+  user: { login: string; avatar_url: string };
+};
 
 export type PullRequestsApiResponse = PullRequestFromApi[];
 
-export type PullRequest = ReturnType<typeof toPullRequest>;
+export type PullRequest = Omit<PullRequestFromApi, 'user'> & {
+  user: { username: string; avatarUrl: string };
+};

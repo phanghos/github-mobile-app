@@ -1,9 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { createServer } from 'miragejs';
 import { UserLoginResponse } from '@models/User';
-import { RepositoriesApiResponse } from '@models/Repository';
-import { PullRequestsApiResponse } from '@models/PullRequest';
-import { IssuesApiResponse } from '@models/Issue';
 import repositoriesMock from '../mocks/jsonMocks/repositoriesMock.json';
 import pullRequetsMock from '../mocks/jsonMocks/pullRequestsMock.json';
 import issuesMock from '../mocks/jsonMocks/issuesMock.json';
@@ -49,23 +46,7 @@ window.server = createServer({
 
 type ApiServiceApi = {
   login: () => Promise<AxiosResponse<UserLoginResponse>>;
-  getRepos: (
-    username: string,
-  ) => Promise<AxiosResponse<RepositoriesApiResponse>>;
-  getPullRequests: (
-    username: string,
-    repo: string,
-  ) => Promise<AxiosResponse<PullRequestsApiResponse>>;
-  getIssues: (
-    username: string,
-    repo: string,
-  ) => Promise<AxiosResponse<IssuesApiResponse>>;
-  searchRepos: (
-    query: string,
-  ) => Promise<AxiosResponse<{ items: RepositoriesApiResponse }>>;
-  searchPullRequests: (
-    query: string,
-  ) => Promise<AxiosResponse<{ items: PullRequestsApiResponse }>>;
+  fetcher: <T = object>(url: string) => Promise<T>; // eslint-disable-line @typescript-eslint/ban-types
 };
 
 export const ApiService: ApiServiceApi = (() => {
@@ -74,29 +55,12 @@ export const ApiService: ApiServiceApi = (() => {
     headers: { Accept: 'application/vnd.github.v3+json' },
   });
 
+  const fetcher = (url: string) => instance.get(url).then(({ data }) => data);
+
   const login = () => instance.get('user');
-
-  const getRepos = (username: string) =>
-    instance.get(`users/${username}/repos`);
-
-  const getPullRequests = (username: string, repo: string) =>
-    instance.get(`repos/${username}/${repo}/pulls`);
-
-  const getIssues = (username: string, repo: string) =>
-    instance.get(`repos/${username}/${repo}/issues`);
-
-  const searchRepos = (query: string) =>
-    instance.get(`search/repositories?q=${query}`);
-
-  const searchPullRequests = (query: string) =>
-    instance.get(`search/issues?q=${query}+is:pull-request`);
 
   return {
     login,
-    getRepos,
-    getPullRequests,
-    getIssues,
-    searchRepos,
-    searchPullRequests,
+    fetcher,
   };
 })();

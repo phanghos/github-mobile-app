@@ -1,21 +1,20 @@
-import { pipe } from 'lodash/fp';
-import { useFetchResource } from '@hooks/useFetchResource';
+import { useState } from 'react';
+import useSWR from 'swr';
 import { ApiService } from '@services/api';
-import { Repository } from '@models/Repository';
 import { toRepositories } from '@services/mappers/repos';
+import { RepositoriesApiResponse } from '@models/Repository';
 
 export const useFetchRepos = (username: string) => {
-  const getData = () => {
-    setIsLoading(true);
+  const { isValidating, data, error } = useSWR<RepositoriesApiResponse>(
+    `users/${username}/repos`,
+    ApiService.fetcher,
+    {
+      onSuccess: dataa => {
+        setRepos(toRepositories(dataa));
+      },
+    },
+  );
+  const [repos, setRepos] = useState(data ? toRepositories(data) : undefined);
 
-    ApiService.getRepos(username)
-      .then(({ data }) => pipe(toRepositories, setData)(data))
-      .catch(setError)
-      .finally(() => setIsLoading(false));
-  };
-
-  const { isLoading, setIsLoading, data, setData, error, setError } =
-    useFetchResource<Repository[]>(getData, []);
-
-  return { isLoading, data: data as Repository[], error, fetchData: getData };
+  return { isLoading: isValidating, data: repos, error };
 };

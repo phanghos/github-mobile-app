@@ -31,7 +31,7 @@ export const IssuesScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <SimpleHeader title="Issues" opacity={opacity} />
-      {isLoading ? (
+      {isLoading && !data ? (
         <ActivityIndicator style={{ flex: 1 }} />
       ) : (
         <AnimatedFlatList

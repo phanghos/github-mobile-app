@@ -1,19 +1,12 @@
-import { useFetchResource } from '@hooks/useFetchResource';
+import useSWR from 'swr';
 import { ApiService } from '@services/api';
-import { Issue } from '@models/Issue';
+import { IssuesApiResponse } from '@models/Issue';
 
 export const useFetchIssues = (username: string, repo: string) => {
-  const getData = () => {
-    setIsLoading(true);
+  const { isValidating, data, error } = useSWR<IssuesApiResponse>(
+    `repos/${username}/${repo}/issues`,
+    ApiService.fetcher,
+  );
 
-    ApiService.getIssues(username, repo)
-      .then(({ data }) => setData(data))
-      .catch(setError)
-      .finally(() => setIsLoading(false));
-  };
-
-  const { isLoading, setIsLoading, data, setData, error, setError } =
-    useFetchResource<Issue[]>(getData, []);
-
-  return { isLoading, data, error };
+  return { isLoading: isValidating, data, error };
 };

@@ -53,14 +53,16 @@ export const SearchResultsScreen = () => {
   const { isLoading, data } = useSearch({
     section: params.section,
     query: 'react',
-  }); // useSearch({ ...params });
+  });
   const { opacity, scrollHandler } = useHeaderAnimation();
+
+  console.log('la data es', JSON.stringify(data));
 
   return (
     <View style={{ flex: 1 }}>
       <SimpleHeader title="Repositories" opacity={opacity} />
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        {isLoading ? (
+        {isLoading && !data ? (
           <ActivityIndicator style={{ flex: 1, backgroundColor: '#fff' }} />
         ) : (
           <AnimatedFlatList
@@ -83,8 +85,6 @@ export const SearchResultsScreen = () => {
                     />
                   );
               }
-
-              return null;
             }}
             keyExtractor={keyExtractor}
             ItemSeparatorComponent={Separator}

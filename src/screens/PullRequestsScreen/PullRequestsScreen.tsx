@@ -34,7 +34,7 @@ export const PullRequestsScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <SimpleHeader title="Pull Requests" opacity={opacity} />
-      {isLoading ? (
+      {isLoading && !data ? (
         <ActivityIndicator style={{ flex: 1 }} />
       ) : (
         <AnimatedFlatList

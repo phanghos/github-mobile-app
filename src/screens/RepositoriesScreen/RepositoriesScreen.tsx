@@ -25,17 +25,17 @@ const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<Repository>>(FlatList);
 
 export const RepositoriesScreen = () => {
-  const { isLoading, data: repos } = useFetchRepos('phanghos');
+  const { isLoading, data } = useFetchRepos('phanghos');
   const { opacity, scrollHandler } = useHeaderAnimation();
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <SimpleHeader title="Repositories" opacity={opacity} />
-      {isLoading ? (
+      {isLoading && !data ? (
         <ActivityIndicator style={{ flex: 1 }} />
       ) : (
         <AnimatedFlatList
-          data={repos}
+          data={data}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           contentContainerStyle={{ padding: 16, paddingTop: 48 }}
